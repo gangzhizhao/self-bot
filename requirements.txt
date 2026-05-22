@@ -1,0 +1,23 @@
+# Python deps for keyi-bot (recovery: pip3 install -r requirements.txt)
+
+# Telegram client (httpx version pinned for compat)
+python-telegram-bot==21.11.1
+httpx==0.25.2
+
+# Browser automation for /browse and dynamic page fetch
+playwright>=1.59
+
+# Video downloads (TikTok / YouTube / Bilibili / 小红书)
+yt-dlp>=2026.3
+
+# Web fetching with cleaner extraction
+trafilatura>=2.0
+curl-cffi>=0.15
+lxml-html-clean>=0.4
+
+# Calendar awareness (法定节假日 / 工作日 / 农历 / 节气)
+chinesecalendar>=1.11
+cnlunar>=0.2
+
+# Image utilities (QR codes, etc)
+Pillow>=12

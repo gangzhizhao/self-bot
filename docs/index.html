@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>self-bot — 你的专属 AI</title>
+  <!-- Hellyeah X-Ray tracking -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F0EBE3;
+      --bg2: #E8E2D9;
+      --ink: #111111;
+      --ink2: #555555;
+      --ink3: #888888;
+      --border: #D9D3CA;
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Outfit', system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 3rem; position: sticky; top: 0;
+      background: var(--bg); border-bottom: 1px solid var(--border); z-index: 100;
+    }
+    .nav-logo { font-weight: 900; font-size: 1.1rem; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { text-decoration: none; color: var(--ink2); font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink); color: #fff; border: none;
+      padding: 0.5rem 1.25rem; border-radius: 999px;
+      font-family: inherit; font-size: 0.88rem; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.75; }
+
+    .hero { padding: 7rem 3rem 6rem; max-width: 1100px; margin: 0 auto; }
+    .hero-label {
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink3); margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 900;
+      line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 1.75rem;
+    }
+    .hero h1 em {
+      font-style: normal; position: relative; display: inline-block;
+    }
+    .hero h1 em::after {
+      content: ''; position: absolute; bottom: 0.08em; left: 0; right: 0;
+      height: 0.06em; background: var(--ink); border-radius: 2px;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--ink2);
+      max-width: 560px; line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--ink); color: #fff; padding: 0.75rem 1.75rem;
+      border-radius: 999px; text-decoration: none; font-weight: 600;
+      font-size: 0.95rem; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.75; }
+    .btn-ghost {
+      border: 1.5px solid var(--border); color: var(--ink);
+      padding: 0.75rem 1.75rem; border-radius: 999px; text-decoration: none;
+      font-weight: 500; font-size: 0.95rem; transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 3rem; }
+
+    .features { padding: 5rem 3rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink3); margin-bottom: 3rem;
+    }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+      border-radius: 1.25rem; overflow: hidden;
+    }
+    .feature-card { background: var(--bg); padding: 2.25rem 2rem; transition: background 0.2s; }
+    .feature-card:hover { background: var(--bg2); }
+    .feature-icon { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .feature-card p { font-size: 0.88rem; color: var(--ink2); line-height: 1.65; }
+
+    .paths { padding: 5rem 3rem; max-width: 1100px; margin: 0 auto; }
+    .paths-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    .path-card {
+      border: 1.5px solid var(--border); border-radius: 1.25rem;
+      padding: 2.5rem; transition: border-color 0.2s;
+    }
+    .path-card:hover { border-color: var(--ink); }
+    .path-tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; background: var(--bg2);
+      padding: 0.3rem 0.75rem; border-radius: 999px; margin-bottom: 1.25rem; color: var(--ink2);
+    }
+    .path-card h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .path-card p { font-size: 0.9rem; color: var(--ink2); line-height: 1.7; margin-bottom: 1.5rem; }
+    .path-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .path-list li { font-size: 0.88rem; color: var(--ink2); display: flex; align-items: flex-start; gap: 0.5rem; }
+    .path-list li::before { content: '–'; color: var(--ink3); flex-shrink: 0; }
+
+    .stack { padding: 4rem 3rem; max-width: 1100px; margin: 0 auto; }
+    .stack-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .pill {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 999px; padding: 0.35rem 0.9rem;
+      font-size: 0.82rem; color: var(--ink2);
+    }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 2.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer .footer-logo { font-weight: 900; font-size: 1rem; letter-spacing: -0.02em; }
+    footer p { font-size: 0.82rem; color: var(--ink3); }
+    footer a { color: var(--ink2); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 4rem 1.5rem 3.5rem; }
+      .divider { margin: 0 1.5rem; }
+      .features, .paths, .stack { padding: 3.5rem 1.5rem; }
+      .paths-grid { grid-template-columns: 1fr; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">self-bot</span>
+  <div class="nav-links">
+    <a href="#features">功能</a>
+    <a href="#paths">如何使用</a>
+    <a href="https://github.com/gangzhizhao/self-bot" target="_blank">GitHub</a>
+  </div>
+  <a href="#" class="nav-cta">找我搭建</a>
+</nav>
+
+<section class="hero">
+  <p class="hero-label">Self-hosted · Open source · GPL-3.0</p>
+  <h1>不是工具，<br>是<em>它</em>。</h1>
+  <p class="hero-sub">
+    住在你服务器上的 AI。记得你说过的每一件事，读自己订阅的新闻，觉得有话说就给你写封信。每个人的都不一样，因为它是被你塑造的。
+  </p>
+  <div class="hero-actions">
+    <a href="https://github.com/gangzhizhao/self-bot" class="btn-primary" target="_blank">查看 GitHub →</a>
+    <a href="#" class="btn-ghost">找我搭建</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="features" id="features">
+  <p class="section-label">核心能力</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🧠</span>
+      <h3>长期记忆</h3>
+      <p>不是会话内记忆。你说过的事、提过的计划、重要纪念日，全部永久保存，越用越懂你。</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">✉️</span>
+      <h3>主动写信</h3>
+      <p>它每天读几十个 RSS 源，有话想说的时候自己给你写封信。不是推送通知，是真的信。</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <h3>有自己的性格</h3>
+      <p>不总是同意你说的话。会顶嘴，会惊喜，有时冒出一句让你没想到的话。完全可定制。</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔒</span>
+      <h3>你的服务器，你的数据</h3>
+      <p>自托管，7×24 在线。数据在你自己的机器上，不上任何第三方云，自愈守护永不宕机。</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌐</span>
+      <h3>能上网，能做研究</h3>
+      <p>发链接它直接读，叫它调研一件事它后台多轮搜索，结果发你邮件。</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎙️</span>
+      <h3>多模态</h3>
+      <p>发语音自动转文字，发图片能理解内容，叫它念给你听它发回语音，还能收发邮件。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="paths" id="paths">
+  <p class="section-label">如何使用</p>
+  <div class="paths-grid">
+    <div class="path-card">
+      <span class="path-tag">技术用户</span>
+      <h3>自己部署</h3>
+      <p>代码完全开源，INSTALL.md 从零到跑起来约 40 分钟。你需要一台云服务器和几个免费 API key。</p>
+      <ul class="path-list">
+        <li>1 核 1GB 服务器，约 15 元/月</li>
+        <li>DeepSeek / MiniMax / 高德 / Supabase 均有免费额度</li>
+        <li>Telegram 入口，官方 Bot API</li>
+        <li>月运营成本约 0 元</li>
+      </ul>
+    </div>
+    <div class="path-card">
+      <span class="path-tag">非技术用户</span>
+      <h3>找我搭建</h3>
+      <p>不想折腾环境的，可以找我。我帮你配好一切，你只需要告诉我想要什么样的 AI。</p>
+      <ul class="path-list">
+        <li>配置服务器环境 + 接 Telegram 入口</li>
+        <li>给 AI 设专属邮箱和名字</li>
+        <li>按你要求定制人格和说话方式</li>
+        <li>📬 </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="stack">
+  <p class="section-label">技术栈</p>
+  <div class="stack-pills">
+    <span class="pill">Python 3.10</span>
+    <span class="pill">Telegram Bot API</span>
+    <span class="pill">DeepSeek</span>
+    <span class="pill">MiniMax</span>
+    <span class="pill">Claude</span>
+    <span class="pill">Supabase</span>
+    <span class="pill">Playwright / Chromium</span>
+    <span class="pill">curl_cffi</span>
+    <span class="pill">高德 Web Service</span>
+    <span class="pill">MiniMax TTS</span>
+    <span class="pill">RSS (~78 sources)</span>
+    <span class="pill">systemd</span>
+    <span class="pill">Tailscale</span>
+    <span class="pill">GPL-3.0</span>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">self-bot</span>
+  <p>开源 · 自托管 · <a href="https://github.com/gangzhizhao/self-bot" target="_blank">GitHub</a> · <a href="#">联系我</a></p>
+  <p>GPL-3.0 © 2026 gangzhizhao</p>
+</footer>
+
+</body>
+</html>

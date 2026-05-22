@@ -1,0 +1,13 @@
+[Unit]
+Description=Run wakeup every 30 minutes
+Requires=wakeup.service
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=30min
+AccuracySec=1min
+Unit=wakeup.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Run reminder check every minute
+Requires=reminder.service
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+AccuracySec=10s
+Unit=reminder.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=Bot Telegram Front-end
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/bot
+EnvironmentFile=/root/bot/bot.env
+Environment=HOME=/root
+ExecStart=/usr/bin/python3 /root/bot/telegram_bot.py
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

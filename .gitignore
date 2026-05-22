@@ -1,0 +1,28 @@
+# ── secrets ──────────────────────────────────────────────────────────────────
+bot.env
+*.env
+*.local
+
+# ── runtime state (per-user, per-session) ────────────────────────────────────
+auth.json
+history/
+media/
+self.md
+now.json
+lastday.json
+
+# ── logs ─────────────────────────────────────────────────────────────────────
+*.log
+
+# ── backups / caches ─────────────────────────────────────────────────────────
+.bak_*
+__pycache__/
+*.pyc
+*.pyo
+*.swp
+
+# ── editor / OS ──────────────────────────────────────────────────────────────
+.DS_Store
+.idea/
+.vscode/
+pending_fixes/

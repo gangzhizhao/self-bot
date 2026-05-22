@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "/opt/mcp-fetch/bin/python",
+      "args": [
+        "-m", "mcp_server_fetch",
+        "--proxy-url", "http://127.0.0.1:7890",
+        "--ignore-robots-txt"
+      ]
+    }
+  }
+}

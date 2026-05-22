@@ -1,0 +1,13 @@
+[Unit]
+Description=Bot watchdog — health check
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/bot
+EnvironmentFile=/root/bot/bot.env
+Environment=HOME=/root
+ExecStart=/usr/bin/python3 /root/bot/watchdog.py
+StandardOutput=append:/root/bot/watchdog.log
+StandardError=append:/root/bot/watchdog.log

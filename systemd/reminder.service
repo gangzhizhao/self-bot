@@ -1,0 +1,13 @@
+[Unit]
+Description=Bot reminder dispatch
+After=network-online.target bot-tg.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/bot
+EnvironmentFile=/root/bot/bot.env
+Environment=HOME=/root
+ExecStart=/usr/bin/python3 /root/bot/reminder_check.py
+StandardOutput=append:/root/bot/reminder.log
+StandardError=append:/root/bot/reminder.log

@@ -1,0 +1,8 @@
+# Install with: crontab /root/bot/systemd/crontab.example
+# Or merge into existing crontab.
+
+*/30 * * * * /usr/bin/python3 /root/bot/wakeup.py >> /root/bot/wakeup.log 2>&1
+* * * * * /usr/bin/python3 /root/bot/reminder_check.py >> /root/bot/reminder.log 2>&1
+*/2 * * * * /usr/bin/python3 /root/bot/watchdog.py >> /root/bot/watchdog.log 2>&1
+30 9 * * 1 /usr/bin/python3 /root/bot/inbox_scan.py >> /root/bot/inbox_scan.log 2>&1
+0 4 * * 0 /usr/bin/python3 /root/bot/consolidate.py >> /root/bot/consolidate.log 2>&1

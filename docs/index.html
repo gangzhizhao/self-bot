@@ -4,7 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>self-bot — 你的专属 AI</title>
+
   <!-- Hellyeah X-Ray tracking -->
+  <script defer
+    src="https://xray.hellyeahai.com/script.js"
+    data-website-id="019e49ef-281a-7000-9cc7-11fd3980fa50"
+    data-host-url="https://xray.hellyeahai.com"
+    data-env="prod"
+    data-domains="gangzhizhao.github.io"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -108,6 +115,40 @@
     .path-list li { font-size: 0.88rem; color: var(--ink2); display: flex; align-items: flex-start; gap: 0.5rem; }
     .path-list li::before { content: '–'; color: var(--ink3); flex-shrink: 0; }
 
+    .signup { padding: 5rem 3rem; max-width: 720px; margin: 0 auto; text-align: left; }
+    .signup-title {
+      font-size: clamp(2.25rem, 5vw, 3.25rem); font-weight: 900;
+      line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.25rem;
+    }
+    .signup-sub {
+      font-size: 1rem; color: var(--ink2); line-height: 1.7;
+      max-width: 520px; margin-bottom: 2rem;
+    }
+    .signup-form {
+      display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;
+    }
+    .signup-input {
+      flex: 1 1 260px; min-width: 0;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 999px; padding: 0.75rem 1.25rem;
+      font-family: inherit; font-size: 0.95rem; color: var(--ink);
+      transition: border-color 0.2s;
+    }
+    .signup-input:focus { outline: none; border-color: var(--ink); }
+    .signup-form button {
+      background: var(--ink); color: #fff; border: none;
+      padding: 0.75rem 1.75rem; border-radius: 999px;
+      font-family: inherit; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .signup-form button:hover { opacity: 0.75; }
+    .signup-form button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .signup-status {
+      font-size: 0.88rem; color: var(--ink2);
+      margin-top: 1rem; line-height: 1.6;
+    }
+    .signup-status[data-state="error"] { color: #b3261e; }
+
     .stack { padding: 4rem 3rem; max-width: 1100px; margin: 0 auto; }
     .stack-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
     .pill {
@@ -131,7 +172,7 @@
       .nav-links { display: none; }
       .hero { padding: 4rem 1.5rem 3.5rem; }
       .divider { margin: 0 1.5rem; }
-      .features, .paths, .stack { padding: 3.5rem 1.5rem; }
+      .features, .paths, .stack, .signup { padding: 3.5rem 1.5rem; }
       .paths-grid { grid-template-columns: 1fr; }
       footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
     }
@@ -146,7 +187,7 @@
     <a href="#paths">如何使用</a>
     <a href="https://github.com/gangzhizhao/self-bot" target="_blank">GitHub</a>
   </div>
-  <a href="mailto:countsheep18@163.com" class="nav-cta">找我搭建</a>
+  <a href="#signup" class="nav-cta">找我搭建</a>
 </nav>
 
 <section class="hero">
@@ -157,8 +198,21 @@
   </p>
   <div class="hero-actions">
     <a href="https://github.com/gangzhizhao/self-bot" class="btn-primary" target="_blank">查看 GitHub →</a>
-    <a href="mailto:countsheep18@163.com" class="btn-ghost">找我搭建</a>
+    <a href="#signup" class="btn-ghost">找我搭建</a>
   </div>
+</section>
+
+<hr class="divider">
+
+<section class="signup" id="signup">
+  <p class="section-label">想要一个？</p>
+  <h2 class="signup-title">留个邮箱，<br>我帮你搭。</h2>
+  <p class="signup-sub">告诉我你的邮箱，我会联系你一起搭一个属于你的 self-bot —— 配服务器、接 Telegram、按你要求定制人格。</p>
+  <form id="signup-form" class="signup-form" novalidate>
+    <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" class="signup-input">
+    <button type="submit">告诉我</button>
+  </form>
+  <p id="signup-status" class="signup-status" hidden></p>
 </section>
 
 <hr class="divider">
@@ -256,6 +310,48 @@
   <p>开源 · 自托管 · <a href="https://github.com/gangzhizhao/self-bot" target="_blank">GitHub</a> · <a href="mailto:countsheep18@163.com">联系我</a></p>
   <p>GPL-3.0 © 2026 gangzhizhao</p>
 </footer>
+
+<script>
+(function () {
+  var form = document.getElementById('signup-form');
+  if (!form) return;
+  var status = document.getElementById('signup-status');
+  var button = form.querySelector('button[type=submit]');
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function showStatus(text, state) {
+    status.textContent = text;
+    if (state) status.setAttribute('data-state', state);
+    else status.removeAttribute('data-state');
+    status.hidden = false;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = (form.email.value || '').trim();
+    if (!EMAIL_RE.test(email)) {
+      showStatus('邮箱格式好像不太对，再确认一下？', 'error');
+      return;
+    }
+
+    button.disabled = true;
+
+    // Fire X-Ray conversion: identify first so the event carries identity context,
+    // then track cv_registration_complete. _hy queue handles pre-load buffering.
+    try {
+      window._hy = window._hy || [];
+      window._hy.push(['identify', email, { email: email }]);
+      window._hy.push(['track', 'cv_registration_complete']);
+    } catch (err) {
+      // tracker failure must not block the user's submission
+    }
+
+    showStatus('收到了，我会尽快联系你。如果想多说几句，可以直接发邮件到 countsheep18@163.com。');
+    form.reset();
+    setTimeout(function () { button.disabled = false; }, 800);
+  });
+})();
+</script>
 
 </body>
 </html>
